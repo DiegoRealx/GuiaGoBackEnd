@@ -1,14 +1,41 @@
-<form method="post">
-    {% csrf_token %}
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="password" name="senha" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-</form>
-
-{% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="icon">
+                <img src="{% static 'assets/img/img_login.png' %}" alt="login-icon">
+            </div>
+            <h2>Bem-Vindo</h2>
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">E-mail</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">LOGIN</button>
+                <a href="{% url 'solicitar_redefinicao_senha' %}" class="forgot">Esqueceu sua senha?</a>
+            </form>
+            <a href="{% url 'cadastrar' %}" class="create-account">Cadastre-se</a>
+        </div>
+    </div>
+</body>
+</html>

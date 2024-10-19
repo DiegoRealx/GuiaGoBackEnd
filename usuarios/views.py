@@ -20,7 +20,7 @@ def cadastrar(request):
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
-        senha = request.POST['senha']
+        senha = request.POST['password']
         try:
             usuario = Usuario.objects.get(email=email)
             if usuario.verificar_senha(senha):  
@@ -41,3 +41,6 @@ def logout(request):
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'usuarios/listar_usuarios.html', {'usuarios': usuarios})
+
+def solicitar_redefinicao_senha(request):
+    return render(request, 'usuarios/solicitar_redefinicao_senha.html')
