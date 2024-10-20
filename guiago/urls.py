@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from usuarios import views  # Corrigido
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name="home"),  # Certifique-se de que existe uma função 'home' no views.py
     path('usuarios/', include('usuarios.urls')),
 ]
+

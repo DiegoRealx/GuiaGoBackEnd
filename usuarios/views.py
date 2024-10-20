@@ -6,6 +6,9 @@ from django.contrib.auth import login as login_usuario, logout as logout_usuario
 from .models import Usuario
 from .forms import FormularioCadastroUsuario
 
+def home(request):
+    return render(request, 'usuarios/home.html')
+
 def cadastrar(request):
     if request.method == 'POST':
         formulario = FormularioCadastroUsuario(request.POST)
@@ -41,6 +44,3 @@ def logout(request):
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'usuarios/listar_usuarios.html', {'usuarios': usuarios})
-
-def solicitar_redefinicao_senha(request):
-    return render(request, 'usuarios/solicitar_redefinicao_senha.html')

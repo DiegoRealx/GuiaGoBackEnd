@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/home.css' %}">
+</head>
+<body>
+    <header>
+        <div id="title">
+            <h1>GuiaGo</h1>
+        </div>
+        <div>
+            <a href="{% url 'login' %}" class="button">Login</a>
+            <a href="{% url 'cadastrar' %}" class="button">Cadastro</a>
+        </div>
+    </header>
+    <main>
+        <aside>
+            <div class="content-box">
+                <h2>Descubra o Mundo com o Guia Go!</h2>
+                <p>
+                    O Guia Go é a sua plataforma essencial para descobrir os melhores pontos turísticos e atrações ao redor do mundo. 
+                    Seja você um turista em busca de aventuras ou alguém que deseja explorar novas culturas, nosso aplicativo oferece 
+                    roteiros personalizados que se adaptam aos seus interesses e preferências.
+                </p>
+            </div>
+            <div class="content-box">
+                <h2>Explore Destinos Incríveis!</h2>
+                <p>
+                    Pesquise Destinos: Encontre facilmente atrações icônicas e locais escondidos em diversas cidades ao redor do mundo, 
+                    filtrando por categoria, localização e muito mais.
+                </p>
+            </div>
+            <div class="content-box">
+                <h2>O que você pode fazer com o Guia Go:</h2>
+                <p>
+                    Crie Roteiros Personalizados: Monte itinerários sob medida para sua viagem, considerando suas preferências e o tempo 
+                    disponível. Informações Detalhadas: Acesse descrições completas, mapas interativos, dicas locais e informações úteis 
+                    sobre cada destino.
+                </p>
+            </div>
+            <div class="content-box">
+                <h2>Experiência Global:</h2>
+                <p>
+                    Receba recomendações adaptadas aos destinos mais fascinantes, de acordo com suas preferências pessoais. Interface 
+                    Intuitiva: Navegue facilmente e encontre as informações de que precisa em um clique.
+                </p>
+            </div>
+        </aside>
+        <article>
+            <img src="{% static 'assets/img/img2.png' %}" alt="imagem ilustrativa">
+        </article>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 GuiaGo. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
