@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferências de Viagem</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/preferencias.css' %}">
+</head>
+<body>
+
+<div class="preferencias-container">
+    <h1>Selecione suas preferências</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="preferencias">
+            <h2>Interesses de Viagem:</h2>
+            <div class="options">
+                <input type="checkbox" id="praia" name="interesses" value="Praia" {% if 'Praia' in interesses_selecionados %}checked{% endif %}>
+                <label for="praia">Praia</label>
+
+                <input type="checkbox" id="cachoeira" name="interesses" value="Cachoeira" {% if 'Cachoeira' in interesses_selecionados %}checked{% endif %}>
+                <label for="cachoeira">Cachoeira</label>
+
+                <input type="checkbox" id="natureza" name="interesses" value="Natureza" {% if 'Natureza' in interesses_selecionados %}checked{% endif %}>
+                <label for="natureza">Natureza</label>
+
+                <input type="checkbox" id="cultura" name="interesses" value="Cultura Local" {% if 'Cultura Local' in interesses_selecionados %}checked{% endif %}>
+                <label for="cultura">Cultura Local</label>
+
+                <input type="checkbox" id="trilha" name="interesses" value="Trilha" {% if 'Trilha' in interesses_selecionados %}checked{% endif %}>
+                <label for="trilha">Trilha</label>
+
+                <input type="checkbox" id="familia" name="interesses" value="Passeios em Família" {% if 'Passeios em Família' in interesses_selecionados %}checked{% endif %}>
+                <label for="familia">Passeios em Família</label>
+            </div>
+        </div>
+
+        <div class="preferencias">
+            <h2>Preferência Gastronômica:</h2>
+            <div class="options">
+                <input type="checkbox" id="oriental" name="gastronomia" value="Culinária Oriental" {% if 'Culinária Oriental' in gastronomia_selecionada %}checked{% endif %}>
+                <label for="oriental">Culinária Oriental</label>
+
+                <input type="checkbox" id="vegetariano" name="gastronomia" value="Vegetariano" {% if 'Vegetariano' in gastronomia_selecionada %}checked{% endif %}>
+                <label for="vegetariano">Vegetariano</label>
+
+                <input type="checkbox" id="churrasco" name="gastronomia" value="Churrasco" {% if 'Churrasco' in gastronomia_selecionada %}checked{% endif %}>
+                <label for="churrasco">Churrasco</label>
+
+                <input type="checkbox" id="vegano" name="gastronomia" value="Vegano" {% if 'Vegano' in gastronomia_selecionada %}checked{% endif %}>
+                <label for="vegano">Vegano</label>
+
+                <input type="checkbox" id="frutos" name="gastronomia" value="Frutos do Mar" {% if 'Frutos do Mar' in gastronomia_selecionada %}checked{% endif %}>
+                <label for="frutos">Frutos do Mar</label>
+            </div>
+        </div>
+
+        <div class="preferencias">
+            <h2>Estilo de Viagem:</h2>
+            <div class="options">
+                <input type="checkbox" id="aventura" name="estilo" value="Aventura" {% if 'Aventura' in estilo_selecionado %}checked{% endif %}>
+                <label for="aventura">Aventura</label>
+
+                <input type="checkbox" id="relaxante" name="estilo" value="Relaxante" {% if 'Relaxante' in estilo_selecionado %}checked{% endif %}>
+                <label for="relaxante">Relaxante</label>
+
+                <input type="checkbox" id="cultural" name="estilo" value="Cultural" {% if 'Cultural' in estilo_selecionado %}checked{% endif %}>
+                <label for="cultural">Cultural</label>
+
+                <input type="checkbox" id="familia_estilo" name="estilo" value="Família" {% if 'Família' in estilo_selecionado %}checked{% endif %}>
+                <label for="familia_estilo">Família</label>
+
+                <input type="checkbox" id="luxuoso" name="estilo" value="Luxuoso" {% if 'Luxuoso' in estilo_selecionado %}checked{% endif %}>
+                <label for="luxuoso">Luxuoso</label>
+            </div>
+        </div>
+
+        <button type="submit" class="button continue-button">Continuar</button>
+    </form>
+</div>
+
+</body>
+</html>

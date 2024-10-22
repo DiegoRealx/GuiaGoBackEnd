@@ -1,5 +1,12 @@
 <ul>
     {% for usuario in usuarios %}
-        <li>{{ usuario.nome_completo }} - {{ usuario.email }}</li>
+        <li>
+            Nome: {{ usuario.nome_completo }}<br>
+            Email: {{ usuario.email }}<br>
+            Data de Nascimento: {{ usuario.data_nascimento }}<br>
+            Interesses: {{ usuario.interesses }}<br>
+            Gastronomia: {{ usuario.gastronomia }}<br>
+            Estilo de Viagem: {{ usuario.estilo }}<br>
+        </li>
     {% endfor %}
 </ul>
