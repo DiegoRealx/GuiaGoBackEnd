@@ -72,7 +72,8 @@ def login(request):
             messages.error(request, 'Usuário não encontrado.')
     return render(request, 'usuarios/login.html')
 
-
+def redefinir(request):
+    return render(request, 'usuarios/redefinicao_senha.html')
 
 def logout(request):
     logout_usuario(request)

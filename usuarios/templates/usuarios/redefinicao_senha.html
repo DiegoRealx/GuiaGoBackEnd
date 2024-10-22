@@ -1,13 +1,4 @@
-<form method="POST" action="{% url 'redefinir_senha' %}">
-    {% csrf_token %}
-    <input type="email" name="email" placeholder="Digite seu email" required>
-    <button type="submit">Redefinir senha</button>
-</form>
+{% load static %}
+<link rel="stylesheet" href="{% static "assets/css/redifinir_senha.css" %}">
+<img src="{% static "assets/img/manu.png" %}" alt="manutenção">
 
-{% if form %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar nova senha</button>
-    </form>
-{% endif %}

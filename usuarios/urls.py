@@ -9,4 +9,5 @@ urlpatterns = [
     path("preferencias/<int:usuario_id>/", PreferenciasViagemView.as_view(), name="preferencias_user"),
     path('login/', views.login, name='login'),
     path('listar/', views.listar_usuarios, name='listar_usuarios'),
+    path('redefinir_senha', views.redefinir, name= 'redefinir'),
 ]
