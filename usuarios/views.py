@@ -4,6 +4,11 @@ from django.contrib.auth import login as login_usuario, logout as logout_usuario
 from .models import Usuario
 from .forms import FormularioCadastroUsuario
 from django.views import View
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
+from .forms import PasswordResetForm
 
 
 
@@ -72,8 +77,32 @@ def login(request):
             messages.error(request, 'Usuário não encontrado.')
     return render(request, 'usuarios/login.html')
 
-def redefinir(request):
-    return render(request, 'usuarios/redefinicao_senha.html')
+
+def password_reset(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            new_password = form.cleaned_data['new_password']
+            confirm_password = request.POST.get('confirm_password')
+            
+            if new_password != confirm_password:
+                messages.error(request, 'As senhas não correspondem.')
+            else:
+                try:
+                    user = Usuario.objects.get(email=email)
+                    user.senha = make_password(new_password)
+                    user.save()
+                    messages.success(request, 'Senha redefinida com sucesso.')
+                    return redirect('login')
+                except Usuario.DoesNotExist:
+                    messages.error(request, 'Usuário com esse e-mail não encontrado.')
+    else:
+        form = PasswordResetForm()
+    
+    return render(request, 'usuarios/password_reset.html', {'form': form})
+
+
 
 def logout(request):
     logout_usuario(request)

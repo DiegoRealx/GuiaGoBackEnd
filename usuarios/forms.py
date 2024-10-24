@@ -24,3 +24,7 @@ class FormularioCadastroUsuario(forms.ModelForm):
         if commit:
             usuario.save()
         return usuario
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(label="E-mail")
+    new_password = forms.CharField(label="Nova senha", widget=forms.PasswordInput)

@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import PreferenciasViagemView
+from .views import password_reset
 
 urlpatterns = [
 
@@ -9,5 +10,5 @@ urlpatterns = [
     path("preferencias/<int:usuario_id>/", PreferenciasViagemView.as_view(), name="preferencias_user"),
     path('login/', views.login, name='login'),
     path('listar/', views.listar_usuarios, name='listar_usuarios'),
-    path('redefinir_senha', views.redefinir, name= 'redefinir'),
+    path('redefinir-senha/', password_reset, name='password_reset'),
 ]
