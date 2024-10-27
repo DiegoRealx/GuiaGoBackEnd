@@ -2,15 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login as login_usuario, logout as logout_usuario
 from .models import Usuario
-from .forms import FormularioCadastroUsuario
+from .forms import FormularioCadastroUsuario, PasswordResetForm
 from django.views import View
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-from .forms import PasswordResetForm
-
-
 
 def home(request):
     return render(request, 'usuarios/home.html')
@@ -19,17 +13,14 @@ def cadastrar(request):
     if request.method == 'POST':
         formulario = FormularioCadastroUsuario(request.POST)
         if formulario.is_valid():
-            usuario = formulario.save(commit=False)  
-            usuario.senha = formulario.cleaned_data['senha']  
-            usuario.save() 
+            usuario = formulario.save(commit=False)
+            usuario.senha = formulario.cleaned_data['senha']
+            usuario.save()
             messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
             return redirect('preferencias_user', usuario_id=usuario.id)
     else:
         formulario = FormularioCadastroUsuario()
     return render(request, 'usuarios/cadastrar.html', {'formulario': formulario})
-
-
-
 
 class PreferenciasViagemView(View):
     template_name = 'usuarios/preferencias.html'
@@ -60,23 +51,20 @@ class PreferenciasViagemView(View):
 
         return redirect('login')
 
-
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['password']
         try:
             usuario = Usuario.objects.get(email=email)
-            if usuario.verificar_senha(senha):  
+            if usuario.verificar_senha(senha):
                 request.session['usuario_id'] = usuario.id
-                messages.success(request, 'Login realizado com sucesso!')
-                return redirect('listar_usuarios')  
+                return redirect('listar_usuarios')
             else:
                 messages.error(request, 'Senha incorreta.')
         except Usuario.DoesNotExist:
             messages.error(request, 'Usuário não encontrado.')
     return render(request, 'usuarios/login.html')
-
 
 def password_reset(request):
     if request.method == 'POST':
@@ -85,7 +73,7 @@ def password_reset(request):
             email = form.cleaned_data['email']
             new_password = form.cleaned_data['new_password']
             confirm_password = request.POST.get('confirm_password')
-            
+
             if new_password != confirm_password:
                 messages.error(request, 'As senhas não correspondem.')
             else:
@@ -99,10 +87,8 @@ def password_reset(request):
                     messages.error(request, 'Usuário com esse e-mail não encontrado.')
     else:
         form = PasswordResetForm()
-    
+
     return render(request, 'usuarios/password_reset.html', {'form': form})
-
-
 
 def logout(request):
     logout_usuario(request)
