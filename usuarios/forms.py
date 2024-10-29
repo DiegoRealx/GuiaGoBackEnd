@@ -10,7 +10,7 @@ class FormularioCadastroUsuario(forms.ModelForm):
         model = Usuario
         fields = ['email', 'nome_completo', 'telefone', 'senha', 'genero', 'interesses', 'gastronomia', 'estilo']
 
-    def clean(self):
+    def clean(self): 
         cleaned_data = super().clean()
         senha = cleaned_data.get("senha")
         confirma_senha = cleaned_data.get("confirma_senha")
