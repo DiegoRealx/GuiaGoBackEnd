@@ -88,8 +88,28 @@ body {
     padding: 1rem 0;
     width: 100%;
 }
+.input-group input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.input-group i {
+    position:absolute;
+    right: 15px;
+    top: 70%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #ccc;
+    cursor: pointer;
+    pointer-events: all;;
+}
 
 .input-box {
+    position: relative; /* Adicione isso para permitir o posicionamento absoluto do ícone */
     display: flex;
     flex-direction: column;
     margin-bottom: 1.1rem;
@@ -97,14 +117,25 @@ body {
 }
 
 .input-box input {
-    margin: 0.6rem 0;
-    padding: 0.8rem 1.2rem;
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Ajuste o padding para deixar espaço para o ícone */
+    margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
+.input-box i {
+    position: absolute; 
+    right: 15px;
+    top: 70%; 
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #ccc;
+    cursor: pointer;
+    pointer-events: all;
+}
 .input-box input:hover {
     background-color: #f9f9f9;
 }

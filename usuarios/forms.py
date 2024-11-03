@@ -9,7 +9,13 @@ class FormularioCadastroUsuario(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['email', 'nome_completo', 'telefone', 'senha', 'genero', 'interesses', 'gastronomia', 'estilo']
-
+        
+    def clean_email(self):
+        email=self.cleaned_data.get("email")
+        if Usuario.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este e-mail ja esta cadastrado.")
+        return email
+    
     def clean(self): 
         cleaned_data = super().clean()
         senha = cleaned_data.get("senha")
