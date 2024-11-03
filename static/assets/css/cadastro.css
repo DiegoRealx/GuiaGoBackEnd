@@ -145,8 +145,7 @@ body {
     border-color: #2f2c32;
 }
 
-.input-box label,
-.gender-title {
+.input-box label, .gender-title {
     font-size: 0.75rem;
     font-weight: 600;
     color: #666;
@@ -188,6 +187,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    color: #ffff;
 }
 
 .continue-button button:hover {
@@ -198,7 +198,6 @@ body {
     text-decoration: none;
     font-size: 0.53rem;
     font-weight: 500;
-    color: #fff;
 }
 
 @media screen and (max-width: 1250px) {
