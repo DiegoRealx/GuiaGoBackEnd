@@ -62,24 +62,22 @@ body {
     align-items: center;
 }
 
-.login-button button {
+.button-link{
     border: none;
     background-color: #2f2c32;
     padding: 0.4rem 1rem;
     border-radius: 5px;
+    color: #ff5733;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.login-button button:hover {
-    background-color: #5d457a;
-}
-
-.login-button button a {
     text-decoration: none;
     font-weight: 500;
     color: #fff;
 }
+
+.button-link:hover{
+    background-color: #5d457a;
+}   
 
 .input-group {
     display: flex;
