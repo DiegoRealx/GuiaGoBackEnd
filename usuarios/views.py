@@ -5,9 +5,9 @@ from .models import Usuario
 from .forms import FormularioCadastroUsuario, PasswordResetForm
 from django.views import View
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render
 import requests
 from django.conf import settings
+from .models import Usuario, PontoTuristico
 
 def home(request):
     return render(request, 'usuarios/home.html')
@@ -62,7 +62,7 @@ def login(request):
             usuario = Usuario.objects.get(email=email)
             if usuario.verificar_senha(senha):
                 request.session['usuario_id'] = usuario.id
-                return redirect('listar_usuarios')
+                return redirect('listar_recomendacoes')
             else:
                 messages.error(request, 'Senha incorreta.')
         except Usuario.DoesNotExist:
@@ -148,4 +148,61 @@ def weather_view(request):
         })
     else:
         return render(request, 'error.html', {'message': 'Não foi possível obter dados do tempo.'})
+
+
+def listar_recomendacoes(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login') 
+
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    pontos_turisticos = PontoTuristico.objects.all()
+
+    if usuario.interesses:
+        interesses = usuario.interesses.split(',')
+        for interesse in interesses:
+            if interesse == 'Praia':
+                pontos_turisticos = pontos_turisticos.filter(interesse_praia=True)
+            elif interesse == 'Natureza':
+                pontos_turisticos = pontos_turisticos.filter(interesse_natureza=True)
+            elif interesse == 'Cultura Local':
+                pontos_turisticos = pontos_turisticos.filter(interesse_cultura_local=True)
+            elif interesse == 'Aventura':
+                pontos_turisticos = pontos_turisticos.filter(interesse_aventura=True)
+            elif interesse == 'Compras':
+                pontos_turisticos = pontos_turisticos.filter(interesse_compras=True)
+
+    if usuario.gastronomia:
+        gastronomia = usuario.gastronomia.split(',')
+        for tipo in gastronomia:
+            if tipo == 'Culinária Oriental':
+                pontos_turisticos = pontos_turisticos.filter(culinaria_oriental=True)
+            elif tipo == 'Vegetariano':
+                pontos_turisticos = pontos_turisticos.filter(vegetariano=True)
+            elif tipo == 'Churrasco':
+                pontos_turisticos = pontos_turisticos.filter(churrasco=True)
+            elif tipo == 'Vegano':
+                pontos_turisticos = pontos_turisticos.filter(vegano=True)
+            elif tipo == 'Frutos do Mar':
+                pontos_turisticos = pontos_turisticos.filter(frutos_do_mar=True)
+
+    if usuario.estilo:
+        estilos = usuario.estilo.split(',')
+        for estilo in estilos:
+            if estilo == 'Relaxante':
+                pontos_turisticos = pontos_turisticos.filter(estilo_relaxante=True)
+            elif estilo == 'Cultural':
+                pontos_turisticos = pontos_turisticos.filter(estilo_cultural=True)
+            elif estilo == 'Família':
+                pontos_turisticos = pontos_turisticos.filter(estilo_familia=True)
+            elif estilo == 'Luxuoso':
+                pontos_turisticos = pontos_turisticos.filter(estilo_luxuoso=True)
+            elif estilo == 'Gastronômico':
+                pontos_turisticos = pontos_turisticos.filter(estilo_gastronomico=True)
+
+    return render(request, 'usuarios/recomendacoes.html', {
+        'pontos_turisticos': pontos_turisticos,
+        'usuario': usuario 
+    })
 
