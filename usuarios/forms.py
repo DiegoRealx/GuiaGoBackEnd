@@ -3,13 +3,31 @@ from django.contrib.auth.hashers import make_password
 from .models import Usuario
 
 class FormularioCadastroUsuario(forms.ModelForm):
-    senha = forms.CharField(widget=forms.PasswordInput)
-    confirma_senha = forms.CharField(label="Confirme sua senha", widget=forms.PasswordInput)
+    senha = forms.CharField(
+    widget=forms.PasswordInput(attrs={'placeholder': 'Digite sua senha'}))
     
+    confirma_senha = forms.CharField(
+    label="Confirme sua senha", 
+    widget=forms.PasswordInput(attrs={'placeholder': 'Confirme a sua senha'}))
+    
+    email = forms.EmailField(
+    label ="Email",
+     widget=forms.EmailInput(attrs={'placeholder': 'Digite seu email'})
+    )
+    nome_completo = forms.CharField(
+    label ="Nome Completo",
+     widget=forms.TextInput(attrs={'placeholder': 'Digite seu nome completo'})
+    )
+    telefone = forms.CharField(
+    label ="Celular",
+     widget=forms.TextInput(attrs={'placeholder': '(xx) xxxxx-xxxx'})
+    )
+     
     class Meta:
         model = Usuario
         fields = ['email', 'nome_completo', 'telefone', 'senha', 'genero', 'interesses', 'gastronomia', 'estilo']
-        
+      
+  
     def clean_email(self):
         email=self.cleaned_data.get("email")
         if Usuario.objects.filter(email=email).exists():
