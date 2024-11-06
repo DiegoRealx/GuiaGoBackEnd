@@ -20,20 +20,17 @@
                 <input type="checkbox" id="praia" name="interesses" value="Praia" {% if 'Praia' in interesses_selecionados %}checked{% endif %}>
                 <label for="praia">Praia</label>
 
-                <input type="checkbox" id="cachoeira" name="interesses" value="Cachoeira" {% if 'Cachoeira' in interesses_selecionados %}checked{% endif %}>
-                <label for="cachoeira">Cachoeira</label>
-
                 <input type="checkbox" id="natureza" name="interesses" value="Natureza" {% if 'Natureza' in interesses_selecionados %}checked{% endif %}>
                 <label for="natureza">Natureza</label>
 
-                <input type="checkbox" id="cultura" name="interesses" value="Cultura Local" {% if 'Cultura Local' in interesses_selecionados %}checked{% endif %}>
-                <label for="cultura">Cultura Local</label>
+                <input type="checkbox" id="cultura_local" name="interesses" value="Cultura Local" {% if 'Cultura Local' in interesses_selecionados %}checked{% endif %}>
+                <label for="cultura_local">Cultura Local</label>
 
-                <input type="checkbox" id="trilha" name="interesses" value="Trilha" {% if 'Trilha' in interesses_selecionados %}checked{% endif %}>
-                <label for="trilha">Trilha</label>
+                <input type="checkbox" id="aventura" name="interesses" value="Aventura" {% if 'Aventura' in interesses_selecionados %}checked{% endif %}>
+                <label for="aventura">Aventura</label>
 
-                <input type="checkbox" id="familia" name="interesses" value="Passeios em Família" {% if 'Passeios em Família' in interesses_selecionados %}checked{% endif %}>
-                <label for="familia">Passeios em Família</label>
+                <input type="checkbox" id="compras" name="interesses" value="Compras" {% if 'Compras' in interesses_selecionados %}checked{% endif %}>
+                <label for="compras">Compras</label>
             </div>
         </div>
 
@@ -60,20 +57,20 @@
         <div class="preferencias">
             <h2>Estilo de Viagem:</h2>
             <div class="options">
-                <input type="checkbox" id="aventura" name="estilo" value="Aventura" {% if 'Aventura' in estilo_selecionado %}checked{% endif %}>
-                <label for="aventura">Aventura</label>
-
                 <input type="checkbox" id="relaxante" name="estilo" value="Relaxante" {% if 'Relaxante' in estilo_selecionado %}checked{% endif %}>
                 <label for="relaxante">Relaxante</label>
 
                 <input type="checkbox" id="cultural" name="estilo" value="Cultural" {% if 'Cultural' in estilo_selecionado %}checked{% endif %}>
                 <label for="cultural">Cultural</label>
 
-                <input type="checkbox" id="familia_estilo" name="estilo" value="Família" {% if 'Família' in estilo_selecionado %}checked{% endif %}>
-                <label for="familia_estilo">Família</label>
+                <input type="checkbox" id="familia" name="estilo" value="Família" {% if 'Família' in estilo_selecionado %}checked{% endif %}>
+                <label for="familia">Família</label>
 
                 <input type="checkbox" id="luxuoso" name="estilo" value="Luxuoso" {% if 'Luxuoso' in estilo_selecionado %}checked{% endif %}>
                 <label for="luxuoso">Luxuoso</label>
+
+                <input type="checkbox" id="gastronomico" name="estilo" value="Gastronômico" {% if 'Gastronômico' in estilo_selecionado %}checked{% endif %}>
+                <label for="gastronomico">Gastronômico</label>
             </div>
         </div>
 
