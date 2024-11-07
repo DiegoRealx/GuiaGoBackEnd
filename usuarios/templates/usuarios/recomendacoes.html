@@ -8,6 +8,15 @@
 <body>
     {% block content %}
     <h2>Locais recomendados para você, {{ usuario.nome_completo }}</h2>
+
+    <div class="clima">
+        <h3>Clima no Rio de Janeiro</h3>
+        <p>Temperatura: {{ clima.temperature }}°C</p>
+        <p>Condição: {{ clima.condition }}</p>
+        <p>Umidade: {{ clima.humidity }}%</p>
+        <p>Velocidade do vento: {{ clima.wind_speed }} m/s</p>
+    </div>
+
     <div class="recomendacoes">
         {% for ponto in pontos_turisticos %}
             <div class="ponto-turistico">
