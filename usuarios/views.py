@@ -98,25 +98,15 @@ def logout(request):
     messages.success(request, 'Você saiu da sua conta.')
     return redirect('login')
 
-#def listar_usuarios(request):
-    #usuarios = Usuario.objects.all()
-    #return render(request, 'usuarios/listar_usuarios.html', {'usuarios': usuarios})
-
-
-
-from django.shortcuts import render, redirect
-from .models import Usuario, PontoTuristico
-from django.conf import settings
-import requests
-from unidecode import unidecode
-
 def listar_recomendacoes(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
-        return redirect('login') 
+        return redirect('login')
 
     usuario = Usuario.objects.get(id=usuario_id)
-    pontos_turisticos = PontoTuristico.objects.all()
+
+    cidade = request.GET.get('cidade', '')
+    pontos_turisticos = PontoTuristico.objects.filter(cidade=cidade)
 
     if usuario.interesses:
         interesses = usuario.interesses.split(',')
@@ -185,8 +175,6 @@ def listar_recomendacoes(request):
         "tornado": "tornado",
     }
 
-    # Pegando dados do clima
-    cidade = request.GET.get('cidade', '')
     api_key = settings.OPENWEATHER_API_KEY
     url = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={api_key}&units=metric"
     response = requests.get(url)
@@ -195,7 +183,7 @@ def listar_recomendacoes(request):
     if response.status_code == 200:
         data = response.json()
         condition = data['weather'][0]['description']
-        translated_condition = weather_translations.get(condition, condition)  # chama a base de dados da tradução
+        translated_condition = weather_translations.get(condition, condition)
 
         clima = {
             'temperatura': data['main']['temp'],
@@ -209,5 +197,3 @@ def listar_recomendacoes(request):
         'cidade': cidade,
         'clima': clima
     })
-
-
