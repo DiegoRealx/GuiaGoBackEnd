@@ -1,35 +1,50 @@
+<!-- templates/recomendacoes.html -->
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisar</title>
+    <title>Recomendações</title>
 </head>
 <body>
-    {% block content %}
-    <h2>Locais recomendados para você, {{ usuario.nome_completo }}</h2>
+    <h1>Buscar Recomendações</h1>
+    
+    <!-- Formulário para buscar cidade -->
+    <form method="get" action="{% url 'listar_recomendacoes' %}">
+        <label for="cidade">Nome da cidade:</label>
+        <input type="text" id="cidade" name="cidade" placeholder="Digite o nome da cidade" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-    <div class="clima">
-        <h3>Clima no Rio de Janeiro</h3>
-        <p>Temperatura: {{ clima.temperature }}°C</p>
-        <p>Condição: {{ clima.condition }}</p>
-        <p>Umidade: {{ clima.humidity }}%</p>
-        <p>Velocidade do vento: {{ clima.wind_speed }} m/s</p>
-    </div>
+    {% if cidade %}
+        <h2>Clima em {{ cidade }}</h2>
+        {% if clima %}
+            <p><strong>Temperatura:</strong> {{ clima.temperatura }}</p>
+            <p><strong>Condição:</strong> {{ clima.condicao }}</p>
+            <p><strong>Umidade:</strong> {{ clima.umidade }}</p>
+            <p><strong>Vento:</strong> {{ clima.vento }}</p>
+        {% else %}
+            <p>Não foi possível obter as informações de clima para {{ cidade }}.</p>
+        {% endif %}
 
-    <div class="recomendacoes">
-        {% for ponto in pontos_turisticos %}
-            <div class="ponto-turistico">
-                <h3>{{ ponto.nome }}</h3>
-                <p>{{ ponto.descricao }}</p>
-                {% if ponto.imagem %}
-                    <img src="{{ ponto.imagem.url }}" alt="Imagem de {{ ponto.nome }}">
-                {% endif %}
-            </div>
-        {% empty %}
-            <p>Não encontramos locais com base nas suas preferências.</p>
-        {% endfor %}
-    </div>
-    {% endblock %}
+        <h2>Pontos Turísticos Recomendados</h2>
+        <div class="pontos-turisticos">
+            {% if pontos %}
+                {% for ponto in pontos %}
+                    <div class="ponto-turistico">
+                        <h3>{{ ponto.nome }}</h3>
+                        <p>{{ ponto.descricao }}</p>
+                        <p><strong>Popularidade:</strong> {{ ponto.popularidade }}</p>
+                        {% if ponto.imagem %}
+                            <img src="{{ ponto.imagem.url }}" alt="{{ ponto.nome }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200" alt="Imagem não disponível">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Não foram encontrados pontos turísticos recomendados para esta cidade.</p>
+            {% endif %}
+        </div>
+    {% endif %}
 </body>
 </html>

@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login as login_usuario, logout as logout_usuario
-from .models import Usuario
+from .models import Usuario, PontoTuristico
 from .forms import FormularioCadastroUsuario, PasswordResetForm
 from django.views import View
 from django.contrib.auth.hashers import make_password
 import requests
 from django.conf import settings
-from .models import Usuario, PontoTuristico
+import unidecode
 
 def home(request):
     return render(request, 'usuarios/home.html')
@@ -98,9 +98,17 @@ def logout(request):
     messages.success(request, 'Você saiu da sua conta.')
     return redirect('login')
 
-def listar_usuarios(request):
-    usuarios = Usuario.objects.all()
-    return render(request, 'usuarios/listar_usuarios.html', {'usuarios': usuarios})
+#def listar_usuarios(request):
+    #usuarios = Usuario.objects.all()
+    #return render(request, 'usuarios/listar_usuarios.html', {'usuarios': usuarios})
+
+
+
+from django.shortcuts import render, redirect
+from .models import Usuario, PontoTuristico
+from django.conf import settings
+import requests
+from unidecode import unidecode
 
 def listar_recomendacoes(request):
     usuario_id = request.session.get('usuario_id')
@@ -108,12 +116,12 @@ def listar_recomendacoes(request):
         return redirect('login') 
 
     usuario = Usuario.objects.get(id=usuario_id)
-
     pontos_turisticos = PontoTuristico.objects.all()
 
     if usuario.interesses:
         interesses = usuario.interesses.split(',')
         for interesse in interesses:
+            interesse = interesse.strip()
             if interesse == 'Praia':
                 pontos_turisticos = pontos_turisticos.filter(interesse_praia=True)
             elif interesse == 'Natureza':
@@ -128,6 +136,7 @@ def listar_recomendacoes(request):
     if usuario.gastronomia:
         gastronomia = usuario.gastronomia.split(',')
         for tipo in gastronomia:
+            tipo = tipo.strip()
             if tipo == 'Culinária Oriental':
                 pontos_turisticos = pontos_turisticos.filter(culinaria_oriental=True)
             elif tipo == 'Vegetariano':
@@ -142,6 +151,7 @@ def listar_recomendacoes(request):
     if usuario.estilo:
         estilos = usuario.estilo.split(',')
         for estilo in estilos:
+            estilo = estilo.strip()
             if estilo == 'Relaxante':
                 pontos_turisticos = pontos_turisticos.filter(estilo_relaxante=True)
             elif estilo == 'Cultural':
@@ -175,12 +185,12 @@ def listar_recomendacoes(request):
         "tornado": "tornado",
     }
 
-    # pegando dados do clima
-    city = "Rio de Janeiro"  
+    # Pegando dados do clima
+    cidade = request.GET.get('cidade', '')
     api_key = settings.OPENWEATHER_API_KEY
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={api_key}&units=metric"
     response = requests.get(url)
-    
+
     clima = {}
     if response.status_code == 200:
         data = response.json()
@@ -188,14 +198,16 @@ def listar_recomendacoes(request):
         translated_condition = weather_translations.get(condition, condition)  # chama a base de dados da tradução
 
         clima = {
-            'temperature': data['main']['temp'],
-            'condition': translated_condition,
-            'humidity': data['main']['humidity'],
-            'wind_speed': data['wind']['speed']
+            'temperatura': data['main']['temp'],
+            'condicao': translated_condition,
+            'umidade': data['main']['humidity'],
+            'vento': data['wind']['speed']
         }
 
     return render(request, 'usuarios/recomendacoes.html', {
-        'pontos_turisticos': pontos_turisticos,
-        'usuario': usuario,
+        'pontos': pontos_turisticos,
+        'cidade': cidade,
         'clima': clima
     })
+
+
