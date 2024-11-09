@@ -1,9 +1,10 @@
-<!-- templates/recomendacoes.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Recomendações</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/recomendacoes.css' %}">
 </head>
 <body>
     <header>
@@ -30,9 +31,11 @@
         {% endif %}
 
         <h2>Pontos Turísticos Recomendados</h2>
+
+        <h3>Baseado nos seus Interesses</h3>
         <div class="pontos-turisticos">
-            {% if pontos %}
-                {% for ponto in pontos %}
+            {% if recomendacoes.interesse %}
+                {% for ponto in recomendacoes.interesse %}
                     <div class="ponto-turistico">
                         <h3>{{ ponto.nome }}</h3>
                         <p>{{ ponto.descricao }}</p>
@@ -45,9 +48,54 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Não foram encontrados pontos turísticos recomendados para esta cidade.</p>
+                <p>Não foram encontrados pontos turísticos para seus interesses nesta cidade.</p>
+            {% endif %}
+        </div>
+
+        <h3>Baseado nas suas Preferências Gastronômicas</h3>
+        <div class="pontos-turisticos">
+            {% if recomendacoes.gastronomia %}
+                {% for ponto in recomendacoes.gastronomia %}
+                    <div class="ponto-turistico">
+                        <h3>{{ ponto.nome }}</h3>
+                        <p>{{ ponto.descricao }}</p>
+                        <p><strong>Popularidade:</strong> {{ ponto.popularidade }}</p>
+                        {% if ponto.imagem %}
+                            <img src="{{ ponto.imagem.url }}" alt="{{ ponto.nome }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200" alt="Imagem não disponível">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Não foram encontrados pontos turísticos com suas preferências gastronômicas nesta cidade.</p>
+            {% endif %}
+        </div>
+
+        <h3>Baseado no seu Estilo Preferido</h3>
+        <div class="pontos-turisticos">
+            {% if recomendacoes.estilo %}
+                {% for ponto in recomendacoes.estilo %}
+                    <div class="ponto-turistico">
+                        <h3>{{ ponto.nome }}</h3>
+                        <p>{{ ponto.descricao }}</p>
+                        <p><strong>Popularidade:</strong> {{ ponto.popularidade }}</p>
+                        {% if ponto.imagem %}
+                            <img src="{{ ponto.imagem.url }}" alt="{{ ponto.nome }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200" alt="Imagem não disponível">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Não foram encontrados pontos turísticos com seu estilo preferido nesta cidade.</p>
             {% endif %}
         </div>
     {% endif %}
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 GuiaGo. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
