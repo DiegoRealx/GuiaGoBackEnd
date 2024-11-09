@@ -25,16 +25,18 @@
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="input-group">
-                    <label for="username">E-mail</label>
-                    <input type="text" id="email" name="email" placeholder="" required>
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Senha</label>
                     <input type="password" id="password" name="password" required>
                     <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenha()"></i>
                 </div>
+                <!-- Passa o parâmetro 'next' caso exista -->
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
                 <button type="submit">LOGIN</button>
-                <a href="{% url "password_reset" %}" class="forgot">Esqueceu sua senha?</a>
+                <a href="{% url 'password_reset' %}" class="forgot">Esqueceu sua senha?</a>
             </form>
             <a href="{% url 'cadastrar' %}" class="create-account">Cadastre-se</a>
         </div>

@@ -6,10 +6,13 @@
     <title>Recomendações</title>
 </head>
 <body>
+    <header>
+        <h2>Bem-vindo, {{ usuario.nome_completo }}!</h2>
+        <a href="{% url 'logout' %}">Sair</a>
+    </header>
+
     <h1>Buscar Recomendações</h1>
-    
-    <!-- Formulário para buscar cidade -->
-    <form method="get" action="{% url 'listar_recomendacoes' %}">
+    <form method="get" action="{% url 'listar_recomendacoes' usuario_id=usuario_id %}">
         <label for="cidade">Nome da cidade:</label>
         <input type="text" id="cidade" name="cidade" placeholder="Digite o nome da cidade" required>
         <button type="submit">Buscar</button>
@@ -18,10 +21,10 @@
     {% if cidade %}
         <h2>Clima em {{ cidade }}</h2>
         {% if clima %}
-            <p><strong>Temperatura:</strong> {{ clima.temperatura }}</p>
+            <p><strong>Temperatura:</strong> {{ clima.temperatura }}°C</p>
             <p><strong>Condição:</strong> {{ clima.condicao }}</p>
-            <p><strong>Umidade:</strong> {{ clima.umidade }}</p>
-            <p><strong>Vento:</strong> {{ clima.vento }}</p>
+            <p><strong>Umidade:</strong> {{ clima.umidade }}%</p>
+            <p><strong>Vento:</strong> {{ clima.vento }} km/h</p>
         {% else %}
             <p>Não foi possível obter as informações de clima para {{ cidade }}.</p>
         {% endif %}

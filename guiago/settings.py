@@ -134,9 +134,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/perfil/'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/listar_recomendacoes/'
 
 load_dotenv()
 
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+
+SESSION_COOKIE_AGE = 60 * 30  # 30 minutos, por exemplo
+SESSION_SAVE_EVERY_REQUEST = True
+
