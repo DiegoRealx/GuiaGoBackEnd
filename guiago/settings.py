@@ -147,4 +147,3 @@ SESSION_COOKIE_NAME = 'sessionid'
 
 SESSION_COOKIE_AGE = 60 * 30  # 30 minutos, por exemplo
 SESSION_SAVE_EVERY_REQUEST = True
-
